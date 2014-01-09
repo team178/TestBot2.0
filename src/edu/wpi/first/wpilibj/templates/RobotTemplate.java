@@ -7,10 +7,8 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Victor;
-import edu.wpi.first.wpilibj.Watchdog;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,22 +22,8 @@ public class RobotTemplate extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-        Watchdog watchdog;
-        Joystick driveStick;
-        Victor motorLeftFront;
-        Victor motorLeftBack;
-        Victor motorRightFront;
-        Victor motorRightBack;
-        Drivetrain drivetrain;        
-        
-        
     public void robotInit() {
-                driveStick = new Joystick(1);
-                motorLeftFront = new Victor(9);
-                motorLeftBack = new Victor(10);
-                motorRightFront = new Victor(7);
-                motorRightBack = new Victor(8);
-                drivetrain = new Drivetrain();
+
     }
 
     /**
@@ -53,9 +37,7 @@ public class RobotTemplate extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-                drivetrain.Drive();
-                
-                watchdog.feed();
+        
     }
     
     /**
@@ -64,6 +46,5 @@ public class RobotTemplate extends IterativeRobot {
     public void testPeriodic() {
     
     }
-
     
 }
