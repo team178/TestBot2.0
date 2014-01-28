@@ -7,8 +7,13 @@
 
 package edu.wpi.first.wpilibj.templates;
 
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.Watchdog;
 
@@ -24,38 +29,58 @@ public class RobotTemplate extends IterativeRobot {
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-        Watchdog watchdog;
-        Joystick driveStick;
-        Victor motorLeftFront;
-        Victor motorLeftBack;
-        Victor motorRightFront;
-        Victor motorRightBack;
-        Drivetrain drivetrain;        
+    private Watchdog watchdog;
+    private Drivetrain drivetrain;
+    /*Timer time;
+    Sensors sense;
+    Shooter shooter;
+    Compressor compressor;
+    DigitalInput compressorSwitch;*/
+    
         
         
     public void robotInit() {
-                driveStick = new Joystick(1);
-                motorLeftFront = new Victor(9);
-                motorLeftBack = new Victor(10);
-                motorRightFront = new Victor(7);
-                motorRightBack = new Victor(8);
-                drivetrain = new Drivetrain();
+        this.drivetrain = new Drivetrain();
+        /*this.time = new Timer();
+        sense = new Sensors(this.drivetrain);
+        shooter = new Shooter();
+        watchdog = Watchdog.getInstance();
+        compressor = new Compressor();
+        compressorSwitch = new DigitalInput(10);*/
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-
+        watchdog.feed();
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-                drivetrain.Drive();
-                
-                watchdog.feed();
+        try{
+            //flashyLight.set(Relay.Value.kForward);
+            drivetrain.drive();
+            //drivetrain.kiddyDrive();
+            //sense.encoder();
+            watchdog.feed();
+            //sense.ultraSonic();
+            //sense.flashLight();
+            /*if(!compressorSwitch.get()){
+                compressor.compressorOn();
+            }else{
+                compressor.compressorOff();
+            }
+            if(falseWoT is true || manual override){
+                shooter.shootThreeStage();
+                shooter.shootTwoStage();
+            }*/
+        }catch(Exception e){
+            System.out.print(e);
+            watchdog.kill();
+        }
     }
     
     /**
@@ -63,7 +88,5 @@ public class RobotTemplate extends IterativeRobot {
      */
     public void testPeriodic() {
     
-    }
-
-    
+    }    
 }
